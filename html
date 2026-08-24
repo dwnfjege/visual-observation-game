@@ -1,0 +1,561 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* INTRO */
+
+#intro {
+  background: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.card {
+  width: 90%;
+  max-width: 550px;
+  padding: 35px;
+  background: #222;
+  border-radius: 18px;
+}
+
+.card h1 {
+  margin-top: 0;
+}
+
+.card p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+button {
+  padding: 15px 35px;
+  border: 0;
+  border-radius: 10px;
+  background: #287cff;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+
+/* GAME */
+
+#game {
+  background: #eee;
+}
+
+#gameArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f2f2f2;
+}
+
+
+/* BLUE CIRCLE */
+
+#blueCircle {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #087cff;
+  left: -60px;
+}
+
+
+/* OTHER SHAPES */
+
+.shape {
+  position: absolute;
+}
+
+#shape1 {
+  width: 35px;
+  height: 35px;
+  background: #777;
+  left: 25%;
+  top: 25%;
+  transform: rotate(45deg);
+}
+
+#shape2 {
+  width: 45px;
+  height: 28px;
+  background: #999;
+  left: 65%;
+  top: 70%;
+  border-radius: 50%;
+}
+
+#shape3 {
+  width: 30px;
+  height: 30px;
+  background: #555;
+  left: 80%;
+  top: 30%;
+  transform: rotate(20deg);
+}
+
+
+/* ORANGE DIAMOND */
+
+#orangeDiamond {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: orange;
+  transform: rotate(45deg);
+  left: -70px;
+  opacity: 0;
+}
+
+
+/* LOADING */
+
+#loading {
+  background: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.loadingText {
+  font-size: 22px;
+}
+</style>
+
+
+<!-- INTRO -->
+
+<div id="intro" class="screen">
+
+  <div class="card">
+
+    <h1>Visual Observation Game</h1>
+
+    <p>
+      You will watch a short animation.
+      Pay attention to what happens on the screen.
+      You will answer a few questions afterward.
+    </p>
+
+    <button onclick="startGame()">
+      Start
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- GAME -->
+
+<div id="game" class="screen hidden">
+
+  <div id="gameArea">
+
+    <div id="blueCircle"></div>
+
+    <div id="shape1" class="shape"></div>
+
+    <div id="shape2" class="shape"></div>
+
+    <div id="shape3" class="shape"></div>
+
+    <div id="orangeDiamond"></div>
+
+  </div>
+
+</div>
+
+
+<!-- LOADING -->
+
+<div id="loading" class="screen hidden">
+
+  <div class="loadingText">
+
+    <p>Thank you for participating.</p>
+
+    <p>Opening the survey...</p>
+
+  </div>
+
+</div>
+
+
+<script>
+
+let running = false;
+let orangeTimer = null;
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame() {
+
+  if (running) {
+    return;
+  }
+
+  running = true;
+
+  resetGame();
+
+
+  document
+    .getElementById("intro")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("loading")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("game")
+    .classList
+    .remove("hidden");
+
+
+  startBlueCircle();
+
+  startOrangeDiamond();
+
+}
+
+
+/* =========================
+   RESET GAME
+========================= */
+
+function resetGame() {
+
+  if (orangeTimer) {
+    clearTimeout(orangeTimer);
+    orangeTimer = null;
+  }
+
+
+  const circle =
+    document.getElementById("blueCircle");
+
+  circle.style.transition = "none";
+  circle.style.left = "-60px";
+
+
+  const diamond =
+    document.getElementById("orangeDiamond");
+
+  diamond.style.transition = "none";
+  diamond.style.left = "-70px";
+  diamond.style.opacity = "0";
+
+}
+
+
+/* =========================
+   BLUE CIRCLE
+========================= */
+
+function startBlueCircle() {
+
+  let passes = 0;
+
+
+  function moveCircle() {
+
+    if (!running || passes >= 23) {
+      return;
+    }
+
+
+    passes++;
+
+
+    const circle =
+      document.getElementById("blueCircle");
+
+
+    /* Random height */
+
+    const randomY =
+      Math.random() *
+      (window.innerHeight - 100) + 50;
+
+    circle.style.top =
+      randomY + "px";
+
+
+    /* Reset to left */
+
+    circle.style.transition =
+      "none";
+
+    circle.style.left =
+      "-60px";
+
+
+    /*
+      BLUE CIRCLE SPEED:
+      0.7 seconds
+    */
+
+    setTimeout(function() {
+
+      if (!running) {
+        return;
+      }
+
+      circle.style.transition =
+        "left 0.7s linear";
+
+      circle.style.left =
+        (window.innerWidth + 60) + "px";
+
+    }, 50);
+
+
+    /*
+      LAST CIRCLE
+    */
+
+    if (passes === 23) {
+
+      /*
+        0.7 seconds to cross
+        + 3 seconds after crossing
+        = 3.7 seconds
+      */
+
+      setTimeout(function() {
+
+        if (!running) {
+          return;
+        }
+
+        finishGame();
+
+      }, 3750);
+
+      return;
+    }
+
+
+    /*
+      Wait before next circle.
+    */
+
+    setTimeout(function() {
+
+      if (!running) {
+        return;
+      }
+
+      const pause =
+        Math.random() * 600 + 200;
+
+      setTimeout(
+        moveCircle,
+        pause
+      );
+
+    }, 750);
+
+  }
+
+
+  moveCircle();
+
+}
+
+
+/* =========================
+   ORANGE DIAMOND
+========================= */
+
+function startOrangeDiamond() {
+
+  /*
+    Appears sometime between
+    8 and 30 seconds.
+  */
+
+  const delay =
+    Math.random() * 22000 + 8000;
+
+
+  orangeTimer =
+    setTimeout(function() {
+
+      if (!running) {
+        return;
+      }
+
+
+      const diamond =
+        document.getElementById(
+          "orangeDiamond"
+        );
+
+
+      /* Random height */
+
+      const randomY =
+        Math.random() *
+        (window.innerHeight - 100) + 50;
+
+      diamond.style.top =
+        randomY + "px";
+
+
+      diamond.style.left =
+        "-70px";
+
+      diamond.style.opacity =
+        "1";
+
+
+      /*
+        ORANGE DIAMOND SPEED:
+        1 second
+      */
+
+      diamond.style.transition =
+        "left 1s linear";
+
+
+      setTimeout(function() {
+
+        if (!running) {
+          return;
+        }
+
+        diamond.style.left =
+          (window.innerWidth + 70) + "px";
+
+      }, 50);
+
+
+      /*
+        Hide diamond after crossing.
+      */
+
+      setTimeout(function() {
+
+        diamond.style.opacity =
+          "0";
+
+      }, 1100);
+
+    }, delay);
+
+}
+
+
+/* =========================
+   FINISH GAME
+========================= */
+
+function finishGame() {
+
+  running = false;
+
+
+  if (orangeTimer) {
+
+    clearTimeout(
+      orangeTimer
+    );
+
+    orangeTimer = null;
+
+  }
+
+
+  /*
+    Hide game.
+  */
+
+  document
+    .getElementById("game")
+    .classList
+    .add("hidden");
+
+
+  /*
+    Show loading screen.
+  */
+
+  document
+    .getElementById("loading")
+    .classList
+    .remove("hidden");
+
+
+  /*
+    Open Tally survey.
+  */
+
+  setTimeout(function() {
+
+    window.open(
+      "https://tally.so/r/ODM1zg",
+      "_blank"
+    );
+
+
+    /*
+      Reset back to Start
+      after opening Tally.
+    */
+
+    setTimeout(function() {
+
+      document
+        .getElementById("loading")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("intro")
+        .classList
+        .remove("hidden");
+
+    }, 500);
+
+  }, 1000);
+
+}
+
+</script>
