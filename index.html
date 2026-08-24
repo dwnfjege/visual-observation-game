@@ -89,7 +89,7 @@ button:hover {
 }
 
 
-/* EXTRA BLUE CIRCLES */
+/* BLUE CIRCLES */
 
 .blueCircleExtra {
   position: absolute;
@@ -101,7 +101,7 @@ button:hover {
 }
 
 
-/* OTHER SHAPES */
+/* DISTRACTIONS */
 
 .shape {
   position: absolute;
@@ -133,9 +133,6 @@ button:hover {
   top: 30%;
   transform: rotate(20deg);
 }
-
-
-/* EXTRA DISTRACTIONS */
 
 #shape4 {
   width: 38px;
@@ -300,27 +297,16 @@ button:hover {
     <div id="blueCircle"></div>
 
     <div id="shape1" class="shape"></div>
-
     <div id="shape2" class="shape"></div>
-
     <div id="shape3" class="shape"></div>
-
     <div id="shape4" class="shape"></div>
-
     <div id="shape5" class="shape"></div>
-
     <div id="shape6" class="shape"></div>
-
     <div id="shape7" class="shape"></div>
-
     <div id="shape8" class="shape"></div>
-
     <div id="shape9" class="shape"></div>
-
     <div id="shape10" class="shape"></div>
-
     <div id="shape11" class="shape"></div>
-
     <div id="shape12" class="shape"></div>
 
     <div id="orangeDiamond"></div>
@@ -365,7 +351,6 @@ function startGame() {
 
   resetGame();
 
-
   document
     .getElementById("intro")
     .classList
@@ -381,11 +366,9 @@ function startGame() {
     .classList
     .remove("hidden");
 
-
   startBlueCircle();
 
   startOrangeDiamond();
-
 }
 
 
@@ -402,14 +385,8 @@ function resetGame() {
     );
 
     orangeTimer = null;
-
   }
 
-
-  /*
-    Remove any blue circles
-    from a previous game.
-  */
 
   document
     .querySelectorAll(".blueCircleExtra")
@@ -426,7 +403,6 @@ function resetGame() {
   diamond.style.transition = "none";
   diamond.style.left = "-70px";
   diamond.style.opacity = "0";
-
 }
 
 
@@ -452,7 +428,6 @@ function startBlueCircle() {
     const circle =
       document.createElement("div");
 
-
     circle.className =
       "blueCircleExtra";
 
@@ -460,10 +435,6 @@ function startBlueCircle() {
     circle.style.left =
       "-60px";
 
-
-    /*
-      Random vertical position.
-    */
 
     const randomY =
       Math.random() *
@@ -474,10 +445,6 @@ function startBlueCircle() {
       randomY + "px";
 
 
-    /*
-      Add circle to game.
-    */
-
     document
       .getElementById("gameArea")
       .appendChild(circle);
@@ -485,7 +452,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      0.6 seconds
+      2.3 seconds
     */
 
     setTimeout(function() {
@@ -511,20 +478,20 @@ function startBlueCircle() {
 
 
     /*
-      Remove circle after
-      crossing the screen.
+      Remove after crossing.
     */
 
     setTimeout(function() {
 
       circle.remove();
 
-    }, 700);
+    }, 2400);
 
 
     /*
-      Create another circle
-      very quickly.
+      Create another blue circle
+      quickly so multiple circles
+      remain on the screen.
     */
 
     if (passes < 38) {
@@ -541,8 +508,7 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for all of the final
-        circles to finish crossing.
+        Wait for final circles.
       */
 
       setTimeout(function() {
@@ -551,10 +517,9 @@ function startBlueCircle() {
           return;
         }
 
-
         finishGame();
 
-      }, 1000);
+      }, 2500);
 
     }
 
@@ -595,10 +560,6 @@ function startOrangeDiamond() {
         );
 
 
-      /*
-        Random height.
-      */
-
       const randomY =
         Math.random() *
         (window.innerHeight - 100) + 50;
@@ -618,11 +579,11 @@ function startOrangeDiamond() {
 
       /*
         ORANGE DIAMOND SPEED:
-        0.3 seconds
+        0.5 seconds
       */
 
       diamond.style.transition =
-        "left 0.3s linear";
+        "left 0.5s linear";
 
 
       setTimeout(function() {
@@ -648,7 +609,7 @@ function startOrangeDiamond() {
         diamond.style.opacity =
           "0";
 
-      }, 400);
+      }, 600);
 
 
     }, delay);
@@ -676,19 +637,11 @@ function finishGame() {
   }
 
 
-  /*
-    Hide game.
-  */
-
   document
     .getElementById("game")
     .classList
     .add("hidden");
 
-
-  /*
-    Show loading screen.
-  */
 
   document
     .getElementById("loading")
