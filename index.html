@@ -95,14 +95,11 @@ button:hover {
 }
 
 
-/* DISTRACTION SHAPES */
+/* OTHER SHAPES */
 
 .shape {
   position: absolute;
 }
-
-
-/* Gray diamond */
 
 #shape1 {
   width: 35px;
@@ -113,9 +110,6 @@ button:hover {
   transform: rotate(45deg);
 }
 
-
-/* Gray oval */
-
 #shape2 {
   width: 45px;
   height: 28px;
@@ -124,9 +118,6 @@ button:hover {
   top: 70%;
   border-radius: 50%;
 }
-
-
-/* Dark gray square */
 
 #shape3 {
   width: 30px;
@@ -138,7 +129,7 @@ button:hover {
 }
 
 
-/* Extra colored shapes */
+/* EXTRA DISTRACTIONS */
 
 #shape4 {
   width: 38px;
@@ -276,6 +267,11 @@ button:hover {
     </p>
 
     <p>
+      Sometimes more than one blue circle may be
+      visible at the same time.
+    </p>
+
+    <p>
       After the animation, you will be asked questions
       about what you observed.
     </p>
@@ -295,21 +291,18 @@ button:hover {
 
   <div id="gameArea">
 
-    <!-- BLUE CIRCLE -->
+    <!-- Original blue circle -->
 
     <div id="blueCircle"></div>
 
 
-    <!-- ORIGINAL DISTRACTIONS -->
+    <!-- DISTRACTIONS -->
 
     <div id="shape1" class="shape"></div>
 
     <div id="shape2" class="shape"></div>
 
     <div id="shape3" class="shape"></div>
-
-
-    <!-- EXTRA DISTRACTIONS -->
 
     <div id="shape4" class="shape"></div>
 
@@ -405,8 +398,13 @@ function startGame() {
 function resetGame() {
 
   if (orangeTimer) {
-    clearTimeout(orangeTimer);
+
+    clearTimeout(
+      orangeTimer
+    );
+
     orangeTimer = null;
+
   }
 
 
@@ -424,11 +422,22 @@ function resetGame() {
   diamond.style.left = "-70px";
   diamond.style.opacity = "0";
 
+
+  /* Remove extra blue circles */
+
+  document
+    .querySelectorAll(".blueCircleExtra")
+    .forEach(function(circle) {
+
+      circle.remove();
+
+    });
+
 }
 
 
 /* =========================
-   BLUE CIRCLE
+   MULTIPLE BLUE CIRCLES
 ========================= */
 
 function startBlueCircle() {
@@ -436,7 +445,7 @@ function startBlueCircle() {
   let passes = 0;
 
 
-  function moveCircle() {
+  function createBlueCircle() {
 
     if (!running || passes >= 23) {
       return;
@@ -447,41 +456,64 @@ function startBlueCircle() {
 
 
     const circle =
-      document.getElementById("blueCircle");
+      document.createElement("div");
 
 
-    /* Random height */
-
-    const randomY =
-      Math.random() *
-      (window.innerHeight - 100) + 50;
-
-    circle.style.top =
-      randomY + "px";
+    circle.className =
+      "blueCircleExtra";
 
 
-    /* Reset to left */
+    circle.style.position =
+      "absolute";
 
-    circle.style.transition =
-      "none";
+    circle.style.width =
+      "42px";
+
+    circle.style.height =
+      "42px";
+
+    circle.style.borderRadius =
+      "50%";
+
+    circle.style.background =
+      "#087cff";
 
     circle.style.left =
       "-60px";
 
+    circle.style.top =
+      (
+        Math.random() *
+        (window.innerHeight - 100) + 50
+      ) + "px";
+
+    circle.style.zIndex =
+      "20";
+
+
+    document
+      .getElementById("gameArea")
+      .appendChild(circle);
+
 
     /*
       BLUE CIRCLE SPEED:
-      0.8 seconds
+      0.6 seconds
     */
 
     setTimeout(function() {
 
       if (!running) {
+
+        circle.remove();
+
         return;
+
       }
 
+
       circle.style.transition =
-        "left 0.8s linear";
+        "left 0.6s linear";
 
       circle.style.left =
         (window.innerWidth + 60) + "px";
@@ -490,14 +522,37 @@ function startBlueCircle() {
 
 
     /*
-      LAST CIRCLE
+      Remove after crossing.
     */
 
-    if (passes === 23) {
+    setTimeout(function() {
+
+      circle.remove();
+
+    }, 700);
+
+
+    /*
+      Create another circle quickly.
+      This allows multiple circles
+      to be on screen at once.
+    */
+
+    if (passes < 23) {
+
+      const nextDelay =
+        Math.random() * 350 + 150;
+
+
+      setTimeout(
+        createBlueCircle,
+        nextDelay
+      );
+
+    } else {
 
       /*
-        0.8 seconds to cross
-        + 3 seconds after crossing
+        Wait for final circles.
       */
 
       setTimeout(function() {
@@ -508,36 +563,14 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 3850);
+      }, 1000);
 
-      return;
     }
-
-
-    /*
-      Random pause between circles.
-    */
-
-    setTimeout(function() {
-
-      if (!running) {
-        return;
-      }
-
-      const pause =
-        Math.random() * 600 + 200;
-
-      setTimeout(
-        moveCircle,
-        pause
-      );
-
-    }, 850);
 
   }
 
 
-  moveCircle();
+  createBlueCircle();
 
 }
 
@@ -577,6 +610,7 @@ function startOrangeDiamond() {
         Math.random() *
         (window.innerHeight - 100) + 50;
 
+
       diamond.style.top =
         randomY + "px";
 
@@ -584,17 +618,18 @@ function startOrangeDiamond() {
       diamond.style.left =
         "-70px";
 
+
       diamond.style.opacity =
         "1";
 
 
       /*
         ORANGE DIAMOND SPEED:
-        0.5 seconds
+        0.3 seconds
       */
 
       diamond.style.transition =
-        "left 0.5s linear";
+        "left 0.3s linear";
 
 
       setTimeout(function() {
@@ -603,14 +638,16 @@ function startOrangeDiamond() {
           return;
         }
 
+
         diamond.style.left =
           (window.innerWidth + 70) + "px";
+
 
       }, 50);
 
 
       /*
-        Hide diamond after crossing.
+        Hide diamond.
       */
 
       setTimeout(function() {
@@ -618,7 +655,8 @@ function startOrangeDiamond() {
         diamond.style.opacity =
           "0";
 
-      }, 600);
+      }, 400);
+
 
     }, delay);
 
@@ -666,7 +704,7 @@ function finishGame() {
 
 
   /*
-    Open Tally in the same tab.
+    Open Tally in same tab.
   */
 
   window.location.href =
