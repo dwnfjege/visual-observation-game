@@ -82,15 +82,21 @@ button:hover {
 }
 
 
-/* BLUE CIRCLE */
+/* ORIGINAL BLUE CIRCLE */
 
 #blueCircle {
+  display: none;
+}
+
+
+/* EXTRA BLUE CIRCLES */
+
+.blueCircleExtra {
   position: absolute;
   width: 42px;
   height: 42px;
   border-radius: 50%;
   background: #087cff;
-  left: -60px;
   z-index: 20;
 }
 
@@ -267,8 +273,8 @@ button:hover {
     </p>
 
     <p>
-      Sometimes more than one blue circle may be
-      visible at the same time.
+      Multiple blue circles may be on the screen
+      at the same time.
     </p>
 
     <p>
@@ -291,12 +297,7 @@ button:hover {
 
   <div id="gameArea">
 
-    <!-- Original blue circle -->
-
     <div id="blueCircle"></div>
-
-
-    <!-- DISTRACTIONS -->
 
     <div id="shape1" class="shape"></div>
 
@@ -321,9 +322,6 @@ button:hover {
     <div id="shape11" class="shape"></div>
 
     <div id="shape12" class="shape"></div>
-
-
-    <!-- ORANGE DIAMOND -->
 
     <div id="orangeDiamond"></div>
 
@@ -408,22 +406,10 @@ function resetGame() {
   }
 
 
-  const circle =
-    document.getElementById("blueCircle");
-
-  circle.style.transition = "none";
-  circle.style.left = "-60px";
-
-
-  const diamond =
-    document.getElementById("orangeDiamond");
-
-  diamond.style.transition = "none";
-  diamond.style.left = "-70px";
-  diamond.style.opacity = "0";
-
-
-  /* Remove extra blue circles */
+  /*
+    Remove any blue circles
+    from a previous game.
+  */
 
   document
     .querySelectorAll(".blueCircleExtra")
@@ -432,6 +418,14 @@ function resetGame() {
       circle.remove();
 
     });
+
+
+  const diamond =
+    document.getElementById("orangeDiamond");
+
+  diamond.style.transition = "none";
+  diamond.style.left = "-70px";
+  diamond.style.opacity = "0";
 
 }
 
@@ -447,7 +441,7 @@ function startBlueCircle() {
 
   function createBlueCircle() {
 
-    if (!running || passes >= 23) {
+    if (!running || passes >= 38) {
       return;
     }
 
@@ -463,33 +457,26 @@ function startBlueCircle() {
       "blueCircleExtra";
 
 
-    circle.style.position =
-      "absolute";
-
-    circle.style.width =
-      "42px";
-
-    circle.style.height =
-      "42px";
-
-    circle.style.borderRadius =
-      "50%";
-
-    circle.style.background =
-      "#087cff";
-
     circle.style.left =
       "-60px";
 
+
+    /*
+      Random vertical position.
+    */
+
+    const randomY =
+      Math.random() *
+      (window.innerHeight - 100) + 50;
+
+
     circle.style.top =
-      (
-        Math.random() *
-        (window.innerHeight - 100) + 50
-      ) + "px";
+      randomY + "px";
 
-    circle.style.zIndex =
-      "20";
 
+    /*
+      Add circle to game.
+    */
 
     document
       .getElementById("gameArea")
@@ -515,14 +502,17 @@ function startBlueCircle() {
       circle.style.transition =
         "left 0.6s linear";
 
+
       circle.style.left =
         (window.innerWidth + 60) + "px";
 
-    }, 50);
+
+    }, 20);
 
 
     /*
-      Remove after crossing.
+      Remove circle after
+      crossing the screen.
     */
 
     setTimeout(function() {
@@ -533,15 +523,14 @@ function startBlueCircle() {
 
 
     /*
-      Create another circle quickly.
-      This allows multiple circles
-      to be on screen at once.
+      Create another circle
+      very quickly.
     */
 
-    if (passes < 23) {
+    if (passes < 38) {
 
       const nextDelay =
-        Math.random() * 350 + 150;
+        Math.random() * 150 + 80;
 
 
       setTimeout(
@@ -552,7 +541,8 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for final circles.
+        Wait for all of the final
+        circles to finish crossing.
       */
 
       setTimeout(function() {
@@ -560,6 +550,7 @@ function startBlueCircle() {
         if (!running) {
           return;
         }
+
 
         finishGame();
 
@@ -604,7 +595,9 @@ function startOrangeDiamond() {
         );
 
 
-      /* Random height */
+      /*
+        Random height.
+      */
 
       const randomY =
         Math.random() *
@@ -643,11 +636,11 @@ function startOrangeDiamond() {
           (window.innerWidth + 70) + "px";
 
 
-      }, 50);
+      }, 20);
 
 
       /*
-        Hide diamond.
+        Hide diamond after crossing.
       */
 
       setTimeout(function() {
