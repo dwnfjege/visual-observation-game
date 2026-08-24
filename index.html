@@ -524,37 +524,13 @@ function finishGame() {
 
 
   /*
-    Open Tally survey.
+    OPEN TALLY IN THE SAME TAB
+    This avoids the browser blocking
+    the popup.
   */
 
-  setTimeout(function() {
-
-    window.open(
-      "https://tally.so/r/ODM1zg",
-      "_blank"
-    );
-
-
-    /*
-      Reset back to Start
-      after opening Tally.
-    */
-
-    setTimeout(function() {
-
-      document
-        .getElementById("loading")
-        .classList
-        .add("hidden");
-
-      document
-        .getElementById("intro")
-        .classList
-        .remove("hidden");
-
-    }, 500);
-
-  }, 1000);
+  window.location.href =
+    "https://tally.so/r/ODM1zg";
 
 }
 
