@@ -31,7 +31,7 @@ body {
 
 .card {
   width: 90%;
-  max-width: 550px;
+  max-width: 600px;
   padding: 35px;
   background: #222;
   border-radius: 18px;
@@ -44,6 +44,12 @@ body {
 .card p {
   font-size: 18px;
   line-height: 1.5;
+}
+
+.warning {
+  color: #58a6ff;
+  font-size: 22px !important;
+  font-weight: bold;
 }
 
 button {
@@ -85,14 +91,18 @@ button:hover {
   border-radius: 50%;
   background: #087cff;
   left: -60px;
+  z-index: 20;
 }
 
 
-/* OTHER SHAPES */
+/* DISTRACTION SHAPES */
 
 .shape {
   position: absolute;
 }
+
+
+/* Gray diamond */
 
 #shape1 {
   width: 35px;
@@ -103,6 +113,9 @@ button:hover {
   transform: rotate(45deg);
 }
 
+
+/* Gray oval */
+
 #shape2 {
   width: 45px;
   height: 28px;
@@ -112,6 +125,9 @@ button:hover {
   border-radius: 50%;
 }
 
+
+/* Dark gray square */
+
 #shape3 {
   width: 30px;
   height: 30px;
@@ -119,6 +135,90 @@ button:hover {
   left: 80%;
   top: 30%;
   transform: rotate(20deg);
+}
+
+
+/* Extra colored shapes */
+
+#shape4 {
+  width: 38px;
+  height: 38px;
+  background: red;
+  left: 12%;
+  top: 65%;
+  border-radius: 50%;
+}
+
+#shape5 {
+  width: 45px;
+  height: 45px;
+  background: purple;
+  left: 45%;
+  top: 18%;
+  transform: rotate(45deg);
+}
+
+#shape6 {
+  width: 32px;
+  height: 55px;
+  background: green;
+  left: 72%;
+  top: 15%;
+  border-radius: 8px;
+}
+
+#shape7 {
+  width: 50px;
+  height: 30px;
+  background: yellow;
+  left: 20%;
+  top: 82%;
+  border-radius: 50%;
+}
+
+#shape8 {
+  width: 36px;
+  height: 36px;
+  background: pink;
+  left: 88%;
+  top: 65%;
+  transform: rotate(30deg);
+}
+
+#shape9 {
+  width: 30px;
+  height: 30px;
+  background: teal;
+  left: 55%;
+  top: 80%;
+  border-radius: 50%;
+}
+
+#shape10 {
+  width: 42px;
+  height: 42px;
+  background: brown;
+  left: 8%;
+  top: 20%;
+  transform: rotate(15deg);
+}
+
+#shape11 {
+  width: 25px;
+  height: 50px;
+  background: limegreen;
+  left: 35%;
+  top: 60%;
+  border-radius: 50%;
+}
+
+#shape12 {
+  width: 40px;
+  height: 40px;
+  background: cyan;
+  left: 60%;
+  top: 40%;
+  transform: rotate(45deg);
 }
 
 
@@ -132,6 +232,7 @@ button:hover {
   transform: rotate(45deg);
   left: -70px;
   opacity: 0;
+  z-index: 25;
 }
 
 
@@ -160,10 +261,23 @@ button:hover {
 
     <h1>Visual Observation Game</h1>
 
+    <p class="warning">
+      IMPORTANT: WATCH THE BLUE CIRCLES.
+    </p>
+
     <p>
-      You will watch a short animation.
-      Pay attention to what happens on the screen.
-      You will answer a few questions afterward.
+      Your main task is to pay close attention to every
+      <strong>blue circle</strong> that crosses the screen.
+    </p>
+
+    <p>
+      There will be other colors, shapes, and distractions.
+      Try to ignore them and focus on the blue circles.
+    </p>
+
+    <p>
+      After the animation, you will be asked questions
+      about what you observed.
     </p>
 
     <button onclick="startGame()">
@@ -181,13 +295,42 @@ button:hover {
 
   <div id="gameArea">
 
+    <!-- BLUE CIRCLE -->
+
     <div id="blueCircle"></div>
+
+
+    <!-- ORIGINAL DISTRACTIONS -->
 
     <div id="shape1" class="shape"></div>
 
     <div id="shape2" class="shape"></div>
 
     <div id="shape3" class="shape"></div>
+
+
+    <!-- EXTRA DISTRACTIONS -->
+
+    <div id="shape4" class="shape"></div>
+
+    <div id="shape5" class="shape"></div>
+
+    <div id="shape6" class="shape"></div>
+
+    <div id="shape7" class="shape"></div>
+
+    <div id="shape8" class="shape"></div>
+
+    <div id="shape9" class="shape"></div>
+
+    <div id="shape10" class="shape"></div>
+
+    <div id="shape11" class="shape"></div>
+
+    <div id="shape12" class="shape"></div>
+
+
+    <!-- ORANGE DIAMOND -->
 
     <div id="orangeDiamond"></div>
 
@@ -328,7 +471,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      0.7 seconds
+      0.8 seconds
     */
 
     setTimeout(function() {
@@ -338,7 +481,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 0.7s linear";
+        "left 0.8s linear";
 
       circle.style.left =
         (window.innerWidth + 60) + "px";
@@ -353,9 +496,8 @@ function startBlueCircle() {
     if (passes === 23) {
 
       /*
-        0.7 seconds to cross
+        0.8 seconds to cross
         + 3 seconds after crossing
-        = 3.7 seconds
       */
 
       setTimeout(function() {
@@ -366,14 +508,14 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 3750);
+      }, 3850);
 
       return;
     }
 
 
     /*
-      Wait before next circle.
+      Random pause between circles.
     */
 
     setTimeout(function() {
@@ -390,7 +532,7 @@ function startBlueCircle() {
         pause
       );
 
-    }, 750);
+    }, 850);
 
   }
 
@@ -448,11 +590,11 @@ function startOrangeDiamond() {
 
       /*
         ORANGE DIAMOND SPEED:
-        1 second
+        0.5 seconds
       */
 
       diamond.style.transition =
-        "left 1s linear";
+        "left 0.5s linear";
 
 
       setTimeout(function() {
@@ -476,7 +618,7 @@ function startOrangeDiamond() {
         diamond.style.opacity =
           "0";
 
-      }, 1100);
+      }, 600);
 
     }, delay);
 
@@ -524,9 +666,7 @@ function finishGame() {
 
 
   /*
-    OPEN TALLY IN THE SAME TAB
-    This avoids the browser blocking
-    the popup.
+    Open Tally in the same tab.
   */
 
   window.location.href =
