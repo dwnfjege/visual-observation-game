@@ -68,6 +68,7 @@ button:hover {
   opacity: 0.85;
 }
 
+
 /* =========================
    GAME
 ========================= */
@@ -84,6 +85,7 @@ button:hover {
   background: #f2f2f2;
 }
 
+
 /* =========================
    BLUE CIRCLES
 ========================= */
@@ -98,6 +100,7 @@ button:hover {
   background: #087cff;
   z-index: 20;
 }
+
 
 /* =========================
    DISTRACTIONS
@@ -215,27 +218,22 @@ button:hover {
   transform: rotate(45deg);
 }
 
+
 /* =========================
    ORANGE DIAMOND
 ========================= */
 
 #orangeDiamond {
   position: absolute;
-
-  /* Smaller than before */
   width: 30px;
   height: 30px;
-
   background: orange;
-
   transform: rotate(45deg);
-
   left: -70px;
-
   opacity: 0;
-
   z-index: 25;
 }
+
 
 /* =========================
    LOADING
@@ -435,24 +433,33 @@ function startBlueCircle() {
     circle.className =
       "blueCircleExtra";
 
+
+    /*
+      RANDOM START POSITION
+    */
+
     circle.style.left =
-      "-60px";
+      (-80 - Math.random() * 100) + "px";
 
 
-    /* RANDOM HEIGHT */
+    /*
+      RANDOM HEIGHT
+    */
 
     const randomY =
       Math.random() *
-      (window.innerHeight - 100) + 50;
+      (window.innerHeight - 120) + 60;
 
     circle.style.top =
       randomY + "px";
 
 
-    /* RANDOM SIZE */
+    /*
+      RANDOM SIZE
+    */
 
     const randomSize =
-      Math.random() * 10 + 38;
+      Math.random() * 14 + 34;
 
     circle.style.width =
       randomSize + "px";
@@ -460,6 +467,10 @@ function startBlueCircle() {
     circle.style.height =
       randomSize + "px";
 
+
+    /*
+      ADD CIRCLE
+    */
 
     document
       .getElementById("gameArea")
@@ -484,9 +495,9 @@ function startBlueCircle() {
         "left 3s linear";
 
       circle.style.left =
-        (window.innerWidth + 60) + "px";
+        (window.innerWidth + 80) + "px";
 
-    }, 20);
+    }, Math.random() * 100 + 20);
 
 
     /*
@@ -497,7 +508,7 @@ function startBlueCircle() {
 
       circle.remove();
 
-    }, 3200);
+    }, 3300);
 
 
     /*
@@ -508,7 +519,7 @@ function startBlueCircle() {
     if (passes < 38) {
 
       const nextDelay =
-        Math.random() * 1800 + 200;
+        Math.random() * 2500 + 150;
 
       setTimeout(
         createBlueCircle,
@@ -518,8 +529,7 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for final circle
-        to finish.
+        WAIT FOR FINAL CIRCLE
       */
 
       setTimeout(function() {
@@ -531,21 +541,25 @@ function startBlueCircle() {
         finishGame();
 
       }, 3300);
+
     }
+
   }
 
 
   /*
-    RANDOM FIRST BLUE CIRCLE
+    RANDOM DELAY BEFORE
+    FIRST BLUE CIRCLE
   */
 
   const firstDelay =
-    Math.random() * 2000 + 500;
+    Math.random() * 3000 + 500;
 
   setTimeout(
     createBlueCircle,
     firstDelay
   );
+
 }
 
 
@@ -563,12 +577,14 @@ function startOrangeDiamond() {
   const delay =
     Math.random() * 17000 + 8000;
 
+
   orangeTimer =
     setTimeout(function() {
 
       if (!running) {
         return;
       }
+
 
       const diamond =
         document.getElementById(
@@ -597,7 +613,7 @@ function startOrangeDiamond() {
 
 
       /*
-        ORANGE DIAMOND:
+        ORANGE SPEED:
         0.5 SECONDS
       */
 
@@ -628,7 +644,9 @@ function startOrangeDiamond() {
 
       }, 600);
 
+
     }, delay);
+
 }
 
 
@@ -640,6 +658,7 @@ function finishGame() {
 
   running = false;
 
+
   if (orangeTimer) {
 
     clearTimeout(
@@ -647,12 +666,15 @@ function finishGame() {
     );
 
     orangeTimer = null;
+
   }
+
 
   document
     .getElementById("game")
     .classList
     .add("hidden");
+
 
   document
     .getElementById("loading")
@@ -666,6 +688,7 @@ function finishGame() {
 
   window.location.href =
     "https://tally.so/r/ODM1zg";
+
 }
 
 </script>
