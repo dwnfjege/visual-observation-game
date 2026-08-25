@@ -18,9 +18,7 @@ body {
   display: none !important;
 }
 
-/* =========================
-   INTRO
-========================= */
+/* INTRO */
 
 #intro {
   background: #111;
@@ -69,9 +67,7 @@ button:hover {
 }
 
 
-/* =========================
-   GAME
-========================= */
+/* GAME */
 
 #game {
   background: #eee;
@@ -86,9 +82,7 @@ button:hover {
 }
 
 
-/* =========================
-   BLUE CIRCLES
-========================= */
+/* BLUE CIRCLES */
 
 #blueCircle {
   display: none;
@@ -102,9 +96,7 @@ button:hover {
 }
 
 
-/* =========================
-   DISTRACTIONS
-========================= */
+/* DISTRACTIONS */
 
 .shape {
   position: absolute;
@@ -219,9 +211,7 @@ button:hover {
 }
 
 
-/* =========================
-   ORANGE DIAMOND
-========================= */
+/* ORANGE DIAMOND */
 
 #orangeDiamond {
   position: absolute;
@@ -235,9 +225,7 @@ button:hover {
 }
 
 
-/* =========================
-   LOADING
-========================= */
+/* LOADING */
 
 #loading {
   background: #111;
@@ -254,9 +242,7 @@ button:hover {
 </style>
 
 
-<!-- =========================
-     INTRO
-========================= -->
+<!-- INTRO -->
 
 <div id="intro" class="screen">
 
@@ -297,9 +283,7 @@ button:hover {
 </div>
 
 
-<!-- =========================
-     GAME
-========================= -->
+<!-- GAME -->
 
 <div id="game" class="screen hidden">
 
@@ -327,9 +311,7 @@ button:hover {
 </div>
 
 
-<!-- =========================
-     LOADING
-========================= -->
+<!-- LOADING -->
 
 <div id="loading" class="screen hidden">
 
@@ -350,9 +332,7 @@ let running = false;
 let orangeTimer = null;
 
 
-/* =========================
-   START GAME
-========================= */
+/* START GAME */
 
 function startGame() {
 
@@ -380,14 +360,11 @@ function startGame() {
     .remove("hidden");
 
   startBlueCircle();
-
   startOrangeDiamond();
 }
 
 
-/* =========================
-   RESET GAME
-========================= */
+/* RESET GAME */
 
 function resetGame() {
 
@@ -469,7 +446,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      1.6 SECONDS
+      1.3 SECONDS
     */
 
     setTimeout(function() {
@@ -482,7 +459,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 1.6s linear";
+        "left 1.3s linear";
 
       circle.style.left =
         (window.innerWidth + 80) + "px";
@@ -490,15 +467,13 @@ function startBlueCircle() {
     }, Math.random() * 100 + 20);
 
 
-    /*
-      REMOVE AFTER CROSSING
-    */
+    /* REMOVE AFTER CROSSING */
 
     setTimeout(function() {
 
       circle.remove();
 
-    }, 1900);
+    }, 1600);
 
 
     /*
@@ -518,10 +493,6 @@ function startBlueCircle() {
 
     } else {
 
-      /*
-        WAIT FOR FINAL CIRCLE
-      */
-
       setTimeout(function() {
 
         if (!running) {
@@ -530,16 +501,12 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 1900);
-
+      }, 1600);
     }
   }
 
 
-  /*
-    RANDOM DELAY BEFORE
-    FIRST BLUE CIRCLE
-  */
+  /* RANDOM FIRST CIRCLE */
 
   const firstDelay =
     Math.random() * 2000 + 300;
@@ -548,7 +515,6 @@ function startBlueCircle() {
     createBlueCircle,
     firstDelay
   );
-
 }
 
 
@@ -566,14 +532,12 @@ function startOrangeDiamond() {
   const delay =
     Math.random() * 17000 + 8000;
 
-
   orangeTimer =
     setTimeout(function() {
 
       if (!running) {
         return;
       }
-
 
       const diamond =
         document.getElementById(
@@ -593,7 +557,6 @@ function startOrangeDiamond() {
 
       diamond.style.left =
         "-70px";
-
 
       diamond.style.opacity =
         "1";
@@ -620,9 +583,7 @@ function startOrangeDiamond() {
       }, 20);
 
 
-      /*
-        HIDE AFTER CROSSING
-      */
+      /* HIDE AFTER CROSSING */
 
       setTimeout(function() {
 
@@ -631,9 +592,7 @@ function startOrangeDiamond() {
 
       }, 600);
 
-
     }, delay);
-
 }
 
 
