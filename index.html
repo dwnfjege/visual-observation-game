@@ -18,9 +18,7 @@ body {
   display: none !important;
 }
 
-/* =========================
-   INTRO
-========================= */
+/* INTRO */
 
 #intro {
   background: #111;
@@ -69,9 +67,7 @@ button:hover {
 }
 
 
-/* =========================
-   GAME
-========================= */
+/* GAME */
 
 #game {
   background: #eee;
@@ -86,9 +82,7 @@ button:hover {
 }
 
 
-/* =========================
-   BLUE CIRCLES
-========================= */
+/* BLUE CIRCLES */
 
 #blueCircle {
   display: none;
@@ -102,9 +96,7 @@ button:hover {
 }
 
 
-/* =========================
-   DISTRACTIONS
-========================= */
+/* DISTRACTIONS */
 
 .shape {
   position: absolute;
@@ -219,9 +211,7 @@ button:hover {
 }
 
 
-/* =========================
-   ORANGE DIAMOND
-========================= */
+/* ORANGE DIAMOND */
 
 #orangeDiamond {
   position: absolute;
@@ -235,9 +225,7 @@ button:hover {
 }
 
 
-/* =========================
-   LOADING
-========================= */
+/* LOADING */
 
 #loading {
   background: #111;
@@ -344,9 +332,7 @@ let running = false;
 let orangeTimer = null;
 
 
-/* =========================
-   START GAME
-========================= */
+/* START GAME */
 
 function startGame() {
 
@@ -374,14 +360,11 @@ function startGame() {
     .remove("hidden");
 
   startBlueCircle();
-
   startOrangeDiamond();
 }
 
 
-/* =========================
-   RESET GAME
-========================= */
+/* RESET GAME */
 
 function resetGame() {
 
@@ -463,7 +446,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      1 SECOND
+      1.2 SECONDS
     */
 
     setTimeout(function() {
@@ -476,7 +459,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 1s linear";
+        "left 1.2s linear";
 
       circle.style.left =
         (window.innerWidth + 80) + "px";
@@ -490,7 +473,7 @@ function startBlueCircle() {
 
       circle.remove();
 
-    }, 1300);
+    }, 1500);
 
 
     /*
@@ -518,7 +501,7 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 1300);
+      }, 1500);
     }
   }
 
@@ -574,10 +557,7 @@ function startOrangeDiamond() {
         "1";
 
 
-      /*
-        ORANGE SPEED:
-        0.5 SECONDS
-      */
+      /* ORANGE SPEED: 0.5 SECONDS */
 
       diamond.style.transition =
         "left 0.5s linear";
