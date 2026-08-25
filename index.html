@@ -255,9 +255,7 @@ button:hover {
 </style>
 
 
-<!-- =========================
-     INTRO
-========================= -->
+<!-- INTRO -->
 
 <div id="intro" class="screen">
 
@@ -298,9 +296,7 @@ button:hover {
 </div>
 
 
-<!-- =========================
-     GAME
-========================= -->
+<!-- GAME -->
 
 <div id="game" class="screen hidden">
 
@@ -328,9 +324,7 @@ button:hover {
 </div>
 
 
-<!-- =========================
-     LOADING
-========================= -->
+<!-- LOADING -->
 
 <div id="loading" class="screen hidden">
 
@@ -393,20 +387,14 @@ function startGame() {
 function resetGame() {
 
   if (orangeTimer) {
-
-    clearTimeout(
-      orangeTimer
-    );
-
+    clearTimeout(orangeTimer);
     orangeTimer = null;
   }
 
   document
     .querySelectorAll(".blueCircleExtra")
     .forEach(function(circle) {
-
       circle.remove();
-
     });
 
   const diamond =
@@ -426,7 +414,6 @@ function startBlueCircle() {
 
   let passes = 0;
 
-
   function createBlueCircle() {
 
     if (!running || passes >= 38) {
@@ -435,25 +422,17 @@ function startBlueCircle() {
 
     passes++;
 
-
     const circle =
       document.createElement("div");
 
     circle.className =
       "blueCircleExtra";
 
-
-    /*
-      START OFF SCREEN
-    */
-
     circle.style.left =
       "-60px";
 
 
-    /*
-      RANDOM HEIGHT
-    */
+    /* RANDOM HEIGHT */
 
     const randomY =
       Math.random() *
@@ -463,9 +442,7 @@ function startBlueCircle() {
       randomY + "px";
 
 
-    /*
-      RANDOM SIZE
-    */
+    /* RANDOM SIZE */
 
     const randomSize =
       Math.random() * 10 + 38;
@@ -477,10 +454,6 @@ function startBlueCircle() {
       randomSize + "px";
 
 
-    /*
-      ADD TO GAME
-    */
-
     document
       .getElementById("gameArea")
       .appendChild(circle);
@@ -488,7 +461,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      5 SECONDS
+      4.4 SECONDS
     */
 
     setTimeout(function() {
@@ -501,7 +474,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 5s linear";
+        "left 4.4s linear";
 
       circle.style.left =
         (window.innerWidth + 60) + "px";
@@ -517,12 +490,12 @@ function startBlueCircle() {
 
       circle.remove();
 
-    }, 5200);
+    }, 4600);
 
 
     /*
       RANDOM DELAY BEFORE
-      THE NEXT BLUE CIRCLE
+      NEXT BLUE CIRCLE
     */
 
     if (passes < 38) {
@@ -539,7 +512,7 @@ function startBlueCircle() {
 
       /*
         Wait for the final circle
-        to finish crossing.
+        to finish.
       */
 
       setTimeout(function() {
@@ -550,15 +523,13 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 5300);
+      }, 4700);
     }
-
   }
 
 
   /*
-    RANDOM DELAY BEFORE
-    THE FIRST BLUE CIRCLE
+    RANDOM FIRST BLUE CIRCLE
   */
 
   const firstDelay =
@@ -568,7 +539,6 @@ function startBlueCircle() {
     createBlueCircle,
     firstDelay
   );
-
 }
 
 
@@ -580,13 +550,11 @@ function startOrangeDiamond() {
 
   /*
     RANDOM APPEARANCE
-
-    Between 5 and 30 seconds.
+    BETWEEN 5 AND 30 SECONDS
   */
 
   const delay =
     Math.random() * 25000 + 5000;
-
 
   orangeTimer =
     setTimeout(function() {
@@ -595,16 +563,13 @@ function startOrangeDiamond() {
         return;
       }
 
-
       const diamond =
         document.getElementById(
           "orangeDiamond"
         );
 
 
-      /*
-        RANDOM HEIGHT
-      */
+      /* RANDOM HEIGHT */
 
       const randomY =
         Math.random() *
@@ -623,7 +588,7 @@ function startOrangeDiamond() {
 
 
       /*
-        ORANGE DIAMOND SPEED:
+        ORANGE DIAMOND:
         0.5 SECONDS
       */
 
@@ -643,10 +608,6 @@ function startOrangeDiamond() {
       }, 20);
 
 
-      /*
-        Hide after crossing.
-      */
-
       setTimeout(function() {
 
         diamond.style.opacity =
@@ -654,9 +615,7 @@ function startOrangeDiamond() {
 
       }, 600);
 
-
     }, delay);
-
 }
 
 
@@ -668,7 +627,6 @@ function finishGame() {
 
   running = false;
 
-
   if (orangeTimer) {
 
     clearTimeout(
@@ -678,12 +636,10 @@ function finishGame() {
     orangeTimer = null;
   }
 
-
   document
     .getElementById("game")
     .classList
     .add("hidden");
-
 
   document
     .getElementById("loading")
@@ -692,12 +648,11 @@ function finishGame() {
 
 
   /*
-    Open Tally in same tab.
+    OPEN TALLY
   */
 
   window.location.href =
     "https://tally.so/r/ODM1zg";
-
 }
 
 </script>
