@@ -378,7 +378,7 @@ function resetGame() {
     document.getElementById("orangeDiamond");
 
   diamond.style.transition = "none";
-  diamond.style.left = "-70px";
+  diamond.style.left = "-60px";
   diamond.style.opacity = "0";
 }
 
@@ -397,7 +397,7 @@ function startBlueCircle() {
     if (
       !running ||
       thisRun !== blueRunID ||
-      passes >= 38
+      passes >= 48
     ) {
       return;
     }
@@ -446,7 +446,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      0.8 SECONDS
+      0.7 SECONDS
     */
 
     setTimeout(function() {
@@ -460,7 +460,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 0.8s linear";
+        "left 0.7s linear";
 
       circle.style.left =
         (window.innerWidth + 80) + "px";
@@ -477,7 +477,7 @@ function startBlueCircle() {
 
     /* RANDOM NEXT CIRCLE */
 
-    if (passes < 38) {
+    if (passes < 45) {
 
       const nextDelay =
         Math.random() * 1800 + 100;
@@ -553,10 +553,10 @@ function startOrangeDiamond() {
         "1";
 
 
-      /* ORANGE SPEED: 0.5 SECONDS */
+      /* ORANGE SPEED: 0.3 SECONDS */
 
       diamond.style.transition =
-        "left 0.5s linear";
+        "left 0.3s linear";
 
 
       setTimeout(function() {
