@@ -434,17 +434,13 @@ function startBlueCircle() {
       "blueCircleExtra";
 
 
-    /*
-      RANDOM START POSITION
-    */
+    /* RANDOM START POSITION */
 
     circle.style.left =
       (-80 - Math.random() * 100) + "px";
 
 
-    /*
-      RANDOM HEIGHT
-    */
+    /* RANDOM HEIGHT */
 
     const randomY =
       Math.random() *
@@ -454,9 +450,7 @@ function startBlueCircle() {
       randomY + "px";
 
 
-    /*
-      RANDOM SIZE
-    */
+    /* RANDOM SIZE */
 
     const randomSize =
       Math.random() * 14 + 34;
@@ -468,10 +462,6 @@ function startBlueCircle() {
       randomSize + "px";
 
 
-    /*
-      ADD CIRCLE
-    */
-
     document
       .getElementById("gameArea")
       .appendChild(circle);
@@ -479,7 +469,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      3 SECONDS
+      2 SECONDS
     */
 
     setTimeout(function() {
@@ -492,7 +482,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 3s linear";
+        "left 2s linear";
 
       circle.style.left =
         (window.innerWidth + 80) + "px";
@@ -508,7 +498,7 @@ function startBlueCircle() {
 
       circle.remove();
 
-    }, 3300);
+    }, 2300);
 
 
     /*
@@ -519,7 +509,7 @@ function startBlueCircle() {
     if (passes < 38) {
 
       const nextDelay =
-        Math.random() * 2500 + 150;
+        Math.random() * 1800 + 100;
 
       setTimeout(
         createBlueCircle,
@@ -540,10 +530,9 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 3300);
+      }, 2300);
 
     }
-
   }
 
 
@@ -553,7 +542,7 @@ function startBlueCircle() {
   */
 
   const firstDelay =
-    Math.random() * 3000 + 500;
+    Math.random() * 2000 + 300;
 
   setTimeout(
     createBlueCircle,
@@ -592,9 +581,7 @@ function startOrangeDiamond() {
         );
 
 
-      /*
-        RANDOM HEIGHT
-      */
+      /* RANDOM HEIGHT */
 
       const randomY =
         Math.random() *
@@ -658,7 +645,6 @@ function finishGame() {
 
   running = false;
 
-
   if (orangeTimer) {
 
     clearTimeout(
@@ -666,21 +652,17 @@ function finishGame() {
     );
 
     orangeTimer = null;
-
   }
-
 
   document
     .getElementById("game")
     .classList
     .add("hidden");
 
-
   document
     .getElementById("loading")
     .classList
     .remove("hidden");
-
 
   /*
     OPEN TALLY
@@ -688,7 +670,6 @@ function finishGame() {
 
   window.location.href =
     "https://tally.so/r/ODM1zg";
-
 }
 
 </script>
