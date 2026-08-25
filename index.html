@@ -82,14 +82,11 @@ button:hover {
 }
 
 
-/* ORIGINAL BLUE CIRCLE */
+/* BLUE CIRCLES */
 
 #blueCircle {
   display: none;
 }
-
-
-/* BLUE CIRCLES */
 
 .blueCircleExtra {
   position: absolute;
@@ -380,13 +377,10 @@ function resetGame() {
 
   if (orangeTimer) {
 
-    clearTimeout(
-      orangeTimer
-    );
+    clearTimeout(orangeTimer);
 
     orangeTimer = null;
   }
-
 
   document
     .querySelectorAll(".blueCircleExtra")
@@ -395,7 +389,6 @@ function resetGame() {
       circle.remove();
 
     });
-
 
   const diamond =
     document.getElementById("orangeDiamond");
@@ -407,13 +400,12 @@ function resetGame() {
 
 
 /* =========================
-   MULTIPLE BLUE CIRCLES
+   BLUE CIRCLES
 ========================= */
 
 function startBlueCircle() {
 
   let passes = 0;
-
 
   function createBlueCircle() {
 
@@ -421,9 +413,7 @@ function startBlueCircle() {
       return;
     }
 
-
     passes++;
-
 
     const circle =
       document.createElement("div");
@@ -431,19 +421,15 @@ function startBlueCircle() {
     circle.className =
       "blueCircleExtra";
 
-
     circle.style.left =
       "-60px";
-
 
     const randomY =
       Math.random() *
       (window.innerHeight - 100) + 50;
 
-
     circle.style.top =
       randomY + "px";
-
 
     document
       .getElementById("gameArea")
@@ -452,7 +438,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      2.3 seconds
+      3.5 seconds
     */
 
     setTimeout(function() {
@@ -462,17 +448,13 @@ function startBlueCircle() {
         circle.remove();
 
         return;
-
       }
 
-
       circle.style.transition =
-        "left 2.3s linear";
-
+        "left 3.5s linear";
 
       circle.style.left =
         (window.innerWidth + 60) + "px";
-
 
     }, 20);
 
@@ -485,20 +467,17 @@ function startBlueCircle() {
 
       circle.remove();
 
-    }, 2400);
+    }, 3600);
 
 
     /*
-      Create another blue circle
-      quickly so multiple circles
-      remain on the screen.
+      Create another circle quickly.
     */
 
     if (passes < 38) {
 
       const nextDelay =
         Math.random() * 150 + 80;
-
 
       setTimeout(
         createBlueCircle,
@@ -508,7 +487,7 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for final circles.
+        Wait for the final circles.
       */
 
       setTimeout(function() {
@@ -519,15 +498,12 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 2500);
+      }, 3700);
 
     }
-
   }
 
-
   createBlueCircle();
-
 }
 
 
@@ -545,7 +521,6 @@ function startOrangeDiamond() {
   const delay =
     Math.random() * 22000 + 8000;
 
-
   orangeTimer =
     setTimeout(function() {
 
@@ -553,25 +528,20 @@ function startOrangeDiamond() {
         return;
       }
 
-
       const diamond =
         document.getElementById(
           "orangeDiamond"
         );
 
-
       const randomY =
         Math.random() *
         (window.innerHeight - 100) + 50;
 
-
       diamond.style.top =
         randomY + "px";
 
-
       diamond.style.left =
         "-70px";
-
 
       diamond.style.opacity =
         "1";
@@ -585,17 +555,14 @@ function startOrangeDiamond() {
       diamond.style.transition =
         "left 0.5s linear";
 
-
       setTimeout(function() {
 
         if (!running) {
           return;
         }
 
-
         diamond.style.left =
           (window.innerWidth + 70) + "px";
-
 
       }, 20);
 
@@ -611,9 +578,7 @@ function startOrangeDiamond() {
 
       }, 600);
 
-
     }, delay);
-
 }
 
 
@@ -625,7 +590,6 @@ function finishGame() {
 
   running = false;
 
-
   if (orangeTimer) {
 
     clearTimeout(
@@ -633,15 +597,12 @@ function finishGame() {
     );
 
     orangeTimer = null;
-
   }
-
 
   document
     .getElementById("game")
     .classList
     .add("hidden");
-
 
   document
     .getElementById("loading")
@@ -655,7 +616,6 @@ function finishGame() {
 
   window.location.href =
     "https://tally.so/r/ODM1zg";
-
 }
 
 </script>
