@@ -18,7 +18,10 @@ body {
   display: none !important;
 }
 
-/* INTRO */
+
+/* =========================
+   INTRO
+========================= */
 
 #intro {
   background: #111;
@@ -67,7 +70,9 @@ button:hover {
 }
 
 
-/* GAME */
+/* =========================
+   GAME
+========================= */
 
 #game {
   background: #eee;
@@ -82,7 +87,9 @@ button:hover {
 }
 
 
-/* BLUE CIRCLES */
+/* =========================
+   BLUE CIRCLES
+========================= */
 
 #blueCircle {
   display: none;
@@ -90,15 +97,15 @@ button:hover {
 
 .blueCircleExtra {
   position: absolute;
-  width: 42px;
-  height: 42px;
   border-radius: 50%;
   background: #087cff;
   z-index: 20;
 }
 
 
-/* DISTRACTIONS */
+/* =========================
+   DISTRACTIONS
+========================= */
 
 .shape {
   position: absolute;
@@ -213,7 +220,9 @@ button:hover {
 }
 
 
-/* ORANGE DIAMOND */
+/* =========================
+   ORANGE DIAMOND
+========================= */
 
 #orangeDiamond {
   position: absolute;
@@ -227,7 +236,9 @@ button:hover {
 }
 
 
-/* LOADING */
+/* =========================
+   LOADING
+========================= */
 
 #loading {
   background: #111;
@@ -244,7 +255,9 @@ button:hover {
 </style>
 
 
-<!-- INTRO -->
+<!-- =========================
+     INTRO
+========================= -->
 
 <div id="intro" class="screen">
 
@@ -285,7 +298,9 @@ button:hover {
 </div>
 
 
-<!-- GAME -->
+<!-- =========================
+     GAME
+========================= -->
 
 <div id="game" class="screen hidden">
 
@@ -313,7 +328,9 @@ button:hover {
 </div>
 
 
-<!-- LOADING -->
+<!-- =========================
+     LOADING
+========================= -->
 
 <div id="loading" class="screen hidden">
 
@@ -377,7 +394,9 @@ function resetGame() {
 
   if (orangeTimer) {
 
-    clearTimeout(orangeTimer);
+    clearTimeout(
+      orangeTimer
+    );
 
     orangeTimer = null;
   }
@@ -407,6 +426,7 @@ function startBlueCircle() {
 
   let passes = 0;
 
+
   function createBlueCircle() {
 
     if (!running || passes >= 38) {
@@ -415,14 +435,25 @@ function startBlueCircle() {
 
     passes++;
 
+
     const circle =
       document.createElement("div");
 
     circle.className =
       "blueCircleExtra";
 
+
+    /*
+      START OFF SCREEN
+    */
+
     circle.style.left =
       "-60px";
+
+
+    /*
+      RANDOM HEIGHT
+    */
 
     const randomY =
       Math.random() *
@@ -431,6 +462,25 @@ function startBlueCircle() {
     circle.style.top =
       randomY + "px";
 
+
+    /*
+      RANDOM SIZE
+    */
+
+    const randomSize =
+      Math.random() * 10 + 38;
+
+    circle.style.width =
+      randomSize + "px";
+
+    circle.style.height =
+      randomSize + "px";
+
+
+    /*
+      ADD TO GAME
+    */
+
     document
       .getElementById("gameArea")
       .appendChild(circle);
@@ -438,7 +488,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      3.5 seconds
+      5 SECONDS
     */
 
     setTimeout(function() {
@@ -451,7 +501,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 3.5s linear";
+        "left 5s linear";
 
       circle.style.left =
         (window.innerWidth + 60) + "px";
@@ -460,24 +510,25 @@ function startBlueCircle() {
 
 
     /*
-      Remove after crossing.
+      REMOVE AFTER CROSSING
     */
 
     setTimeout(function() {
 
       circle.remove();
 
-    }, 3600);
+    }, 5200);
 
 
     /*
-      Create another circle quickly.
+      RANDOM DELAY BEFORE
+      THE NEXT BLUE CIRCLE
     */
 
     if (passes < 38) {
 
       const nextDelay =
-        Math.random() * 150 + 80;
+        Math.random() * 1800 + 200;
 
       setTimeout(
         createBlueCircle,
@@ -487,7 +538,8 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for the final circles.
+        Wait for the final circle
+        to finish crossing.
       */
 
       setTimeout(function() {
@@ -498,12 +550,25 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 3700);
-
+      }, 5300);
     }
+
   }
 
-  createBlueCircle();
+
+  /*
+    RANDOM DELAY BEFORE
+    THE FIRST BLUE CIRCLE
+  */
+
+  const firstDelay =
+    Math.random() * 2000 + 500;
+
+  setTimeout(
+    createBlueCircle,
+    firstDelay
+  );
+
 }
 
 
@@ -514,12 +579,14 @@ function startBlueCircle() {
 function startOrangeDiamond() {
 
   /*
-    Appears sometime between
-    8 and 30 seconds.
+    RANDOM APPEARANCE
+
+    Between 5 and 30 seconds.
   */
 
   const delay =
-    Math.random() * 22000 + 8000;
+    Math.random() * 25000 + 5000;
+
 
   orangeTimer =
     setTimeout(function() {
@@ -528,10 +595,16 @@ function startOrangeDiamond() {
         return;
       }
 
+
       const diamond =
         document.getElementById(
           "orangeDiamond"
         );
+
+
+      /*
+        RANDOM HEIGHT
+      */
 
       const randomY =
         Math.random() *
@@ -540,8 +613,10 @@ function startOrangeDiamond() {
       diamond.style.top =
         randomY + "px";
 
+
       diamond.style.left =
         "-70px";
+
 
       diamond.style.opacity =
         "1";
@@ -549,11 +624,12 @@ function startOrangeDiamond() {
 
       /*
         ORANGE DIAMOND SPEED:
-        0.5 seconds
+        0.5 SECONDS
       */
 
       diamond.style.transition =
         "left 0.5s linear";
+
 
       setTimeout(function() {
 
@@ -568,7 +644,7 @@ function startOrangeDiamond() {
 
 
       /*
-        Hide diamond after crossing.
+        Hide after crossing.
       */
 
       setTimeout(function() {
@@ -578,7 +654,9 @@ function startOrangeDiamond() {
 
       }, 600);
 
+
     }, delay);
+
 }
 
 
@@ -590,6 +668,7 @@ function finishGame() {
 
   running = false;
 
+
   if (orangeTimer) {
 
     clearTimeout(
@@ -599,10 +678,12 @@ function finishGame() {
     orangeTimer = null;
   }
 
+
   document
     .getElementById("game")
     .classList
     .add("hidden");
+
 
   document
     .getElementById("loading")
@@ -616,6 +697,7 @@ function finishGame() {
 
   window.location.href =
     "https://tally.so/r/ODM1zg";
+
 }
 
 </script>
