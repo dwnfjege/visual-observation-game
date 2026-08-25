@@ -221,12 +221,19 @@ button:hover {
 
 #orangeDiamond {
   position: absolute;
-  width: 34px;
-  height: 34px;
+
+  /* Smaller than before */
+  width: 30px;
+  height: 30px;
+
   background: orange;
+
   transform: rotate(45deg);
+
   left: -70px;
+
   opacity: 0;
+
   z-index: 25;
 }
 
@@ -511,7 +518,7 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for the final circle
+        Wait for final circle
         to finish.
       */
 
@@ -550,11 +557,11 @@ function startOrangeDiamond() {
 
   /*
     RANDOM APPEARANCE
-    BETWEEN 5 AND 30 SECONDS
+    BETWEEN 8 AND 25 SECONDS
   */
 
   const delay =
-    Math.random() * 25000 + 5000;
+    Math.random() * 17000 + 8000;
 
   orangeTimer =
     setTimeout(function() {
@@ -569,7 +576,9 @@ function startOrangeDiamond() {
         );
 
 
-      /* RANDOM HEIGHT */
+      /*
+        RANDOM HEIGHT
+      */
 
       const randomY =
         Math.random() *
@@ -607,6 +616,10 @@ function startOrangeDiamond() {
 
       }, 20);
 
+
+      /*
+        HIDE AFTER CROSSING
+      */
 
       setTimeout(function() {
 
