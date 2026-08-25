@@ -62,10 +62,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.85;
-}
-
 
 /* GAME */
 
@@ -269,11 +265,6 @@ button:hover {
       at the same time.
     </p>
 
-    <p>
-      After the animation, you will be asked questions
-      about what you observed.
-    </p>
-
     <button onclick="startGame()">
       Start
     </button>
@@ -316,11 +307,8 @@ button:hover {
 <div id="loading" class="screen hidden">
 
   <div class="loadingText">
-
     <p>Thank you for participating.</p>
-
     <p>Opening the survey...</p>
-
   </div>
 
 </div>
@@ -330,11 +318,6 @@ button:hover {
 
 let running = false;
 let orangeTimer = null;
-
-/*
-  This ID prevents an old game from
-  creating extra blue circles.
-*/
 let blueRunID = 0;
 
 
@@ -368,7 +351,6 @@ function startGame() {
     .remove("hidden");
 
   startBlueCircle();
-
   startOrangeDiamond();
 }
 
@@ -384,9 +366,6 @@ function resetGame() {
     orangeTimer = null;
   }
 
-  /*
-    Invalidate any previous blue-circle timers.
-  */
   blueRunID++;
 
   document
@@ -410,20 +389,12 @@ function resetGame() {
 
 function startBlueCircle() {
 
-  /*
-    Create a unique ID for this game.
-  */
   const thisRun = blueRunID;
 
   let passes = 0;
 
 
   function createBlueCircle() {
-
-    /*
-      Stop old timers and prevent
-      more than 38 circles.
-    */
 
     if (
       !running ||
@@ -433,9 +404,7 @@ function startBlueCircle() {
       return;
     }
 
-
     passes++;
-
 
     const circle =
       document.createElement("div");
@@ -479,7 +448,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      1.2 SECONDS
+      1 SECOND
     */
 
     setTimeout(function() {
@@ -492,10 +461,8 @@ function startBlueCircle() {
         return;
       }
 
-
       circle.style.transition =
-        "left 1.2s linear";
-
+        "left 1s linear";
 
       circle.style.left =
         (window.innerWidth + 80) + "px";
@@ -503,28 +470,19 @@ function startBlueCircle() {
     }, Math.random() * 100 + 20);
 
 
-    /*
-      REMOVE THE CIRCLE
-      AFTER IT HAS CROSSED.
-    */
+    /* REMOVE AFTER CROSSING */
 
     setTimeout(function() {
-
       circle.remove();
+    }, 1300);
 
-    }, 1500);
 
-
-    /*
-      CREATE NEXT CIRCLE
-      AT A RANDOM TIME.
-    */
+    /* RANDOM NEXT CIRCLE */
 
     if (passes < 38) {
 
       const nextDelay =
         Math.random() * 1800 + 100;
-
 
       setTimeout(
         createBlueCircle,
@@ -533,10 +491,7 @@ function startBlueCircle() {
 
     } else {
 
-      /*
-        This was circle #38.
-        Wait for it to finish.
-      */
+      /* WAIT FOR CIRCLE #38 */
 
       setTimeout(function() {
 
@@ -547,29 +502,22 @@ function startBlueCircle() {
           return;
         }
 
-
         finishGame();
 
-      }, 1500);
-
+      }, 1300);
     }
-
   }
 
 
-  /*
-    RANDOM FIRST CIRCLE
-  */
+  /* RANDOM FIRST CIRCLE */
 
   const firstDelay =
     Math.random() * 2000 + 300;
-
 
   setTimeout(
     createBlueCircle,
     firstDelay
   );
-
 }
 
 
@@ -578,11 +526,6 @@ function startBlueCircle() {
 ========================= */
 
 function startOrangeDiamond() {
-
-  /*
-    Random appearance between
-    8 and 25 seconds.
-  */
 
   const delay =
     Math.random() * 17000 + 8000;
@@ -594,7 +537,6 @@ function startOrangeDiamond() {
       if (!running) {
         return;
       }
-
 
       const diamond =
         document.getElementById(
@@ -608,14 +550,11 @@ function startOrangeDiamond() {
         Math.random() *
         (window.innerHeight - 100) + 50;
 
-
       diamond.style.top =
         randomY + "px";
 
-
       diamond.style.left =
         "-70px";
-
 
       diamond.style.opacity =
         "1";
@@ -636,16 +575,11 @@ function startOrangeDiamond() {
           return;
         }
 
-
         diamond.style.left =
           (window.innerWidth + 70) + "px";
 
       }, 20);
 
-
-      /*
-        Hide after crossing.
-      */
 
       setTimeout(function() {
 
@@ -654,9 +588,7 @@ function startOrangeDiamond() {
 
       }, 600);
 
-
     }, delay);
-
 }
 
 
@@ -668,14 +600,7 @@ function finishGame() {
 
   running = false;
 
-
-  /*
-    Invalidate every remaining
-    blue-circle timer.
-  */
-
   blueRunID++;
-
 
   if (orangeTimer) {
 
@@ -684,13 +609,8 @@ function finishGame() {
     );
 
     orangeTimer = null;
-
   }
 
-
-  /*
-    Remove any remaining blue circles.
-  */
 
   document
     .querySelectorAll(".blueCircleExtra")
@@ -699,19 +619,11 @@ function finishGame() {
     });
 
 
-  /*
-    Hide game.
-  */
-
   document
     .getElementById("game")
     .classList
     .add("hidden");
 
-
-  /*
-    Show loading screen.
-  */
 
   document
     .getElementById("loading")
@@ -719,13 +631,8 @@ function finishGame() {
     .remove("hidden");
 
 
-  /*
-    Open Tally survey.
-  */
-
   window.location.href =
     "https://tally.so/r/ODM1zg";
-
 }
 
 </script>
