@@ -461,7 +461,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      4 SECONDS
+      3.5 SECONDS
     */
 
     setTimeout(function() {
@@ -474,7 +474,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 4s linear";
+        "left 3.5s linear";
 
       circle.style.left =
         (window.innerWidth + 60) + "px";
@@ -490,7 +490,7 @@ function startBlueCircle() {
 
       circle.remove();
 
-    }, 4200);
+    }, 3700);
 
 
     /*
@@ -511,8 +511,8 @@ function startBlueCircle() {
     } else {
 
       /*
-        Wait for final circle
-        to finish.
+        Wait for the final circle
+        to finish crossing.
       */
 
       setTimeout(function() {
@@ -523,7 +523,7 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 4300);
+      }, 3800);
     }
   }
 
