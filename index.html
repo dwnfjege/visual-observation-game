@@ -62,6 +62,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  opacity: 0.85;
+}
+
 
 /* GAME */
 
@@ -321,9 +325,7 @@ let orangeTimer = null;
 let blueRunID = 0;
 
 
-/* =========================
-   START GAME
-========================= */
+/* START GAME */
 
 function startGame() {
 
@@ -355,9 +357,7 @@ function startGame() {
 }
 
 
-/* =========================
-   RESET GAME
-========================= */
+/* RESET GAME */
 
 function resetGame() {
 
@@ -383,9 +383,7 @@ function resetGame() {
 }
 
 
-/* =========================
-   BLUE CIRCLES
-========================= */
+/* BLUE CIRCLES */
 
 function startBlueCircle() {
 
@@ -448,7 +446,7 @@ function startBlueCircle() {
 
     /*
       BLUE CIRCLE SPEED:
-      1 SECOND
+      0.8 SECONDS
     */
 
     setTimeout(function() {
@@ -462,7 +460,7 @@ function startBlueCircle() {
       }
 
       circle.style.transition =
-        "left 1s linear";
+        "left 0.8s linear";
 
       circle.style.left =
         (window.innerWidth + 80) + "px";
@@ -474,7 +472,7 @@ function startBlueCircle() {
 
     setTimeout(function() {
       circle.remove();
-    }, 1300);
+    }, 1100);
 
 
     /* RANDOM NEXT CIRCLE */
@@ -491,8 +489,6 @@ function startBlueCircle() {
 
     } else {
 
-      /* WAIT FOR CIRCLE #38 */
-
       setTimeout(function() {
 
         if (
@@ -504,7 +500,7 @@ function startBlueCircle() {
 
         finishGame();
 
-      }, 1300);
+      }, 1100);
     }
   }
 
@@ -521,15 +517,12 @@ function startBlueCircle() {
 }
 
 
-/* =========================
-   ORANGE DIAMOND
-========================= */
+/* ORANGE DIAMOND */
 
 function startOrangeDiamond() {
 
   const delay =
     Math.random() * 17000 + 8000;
-
 
   orangeTimer =
     setTimeout(function() {
@@ -560,10 +553,7 @@ function startOrangeDiamond() {
         "1";
 
 
-      /*
-        ORANGE SPEED:
-        0.5 SECONDS
-      */
+      /* ORANGE SPEED: 0.5 SECONDS */
 
       diamond.style.transition =
         "left 0.5s linear";
@@ -592,9 +582,7 @@ function startOrangeDiamond() {
 }
 
 
-/* =========================
-   FINISH GAME
-========================= */
+/* FINISH GAME */
 
 function finishGame() {
 
@@ -603,11 +591,7 @@ function finishGame() {
   blueRunID++;
 
   if (orangeTimer) {
-
-    clearTimeout(
-      orangeTimer
-    );
-
+    clearTimeout(orangeTimer);
     orangeTimer = null;
   }
 
